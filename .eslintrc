@@ -4,7 +4,7 @@
   },
   "rules": {
     "indent": [2, 2],
-    "quotes": "single",
+    "quotes": [2, "single"],
     "camelcase": 0
   }
 }
