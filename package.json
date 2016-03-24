@@ -3,34 +3,43 @@
   "version": "0.0.1",
   "author": "Francis Gulotta <wizard@roborooter.com> (https://github.com/reconbot/)",
   "description": "middleware for changing the inflection of json keys in requests and responses in express/connect applications",
-  "keywords": ["inflection", "camelcase", "snakecase", "express", "connect", "middleware"],
+  "keywords": [
+    "inflection",
+    "camelcase",
+    "snakecase",
+    "express",
+    "connect",
+    "middleware"
+  ],
   "homepage": "https://github.com/reconbot/json-inflector/",
   "repository": {
     "type": "git",
     "url": "git://github.com/reconbot/json-inflector.git"
   },
-  "contributors": [
-  ],
+  "contributors": [],
   "license": "MIT",
-  "bugs": {"url": "https://github.com/reconbot/json-inflector/issues"},
+  "bugs": {
+    "url": "https://github.com/reconbot/json-inflector/issues"
+  },
   "main": "./lib/index.js",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">4.0.0",
+    "npm": "^3.0.0"
   },
   "dependencies": {
-    "vary": "^1"
+    "humps": "^1.0.0"
   },
   "devDependencies": {
-    "basic-auth-connect": "^1.0.0",
-    "body-parser": "^1.12.4",
+    "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
     "eslint": "^0.21.2",
     "express": "^4.12.4",
     "mocha": "^2.2.5",
-    "should": "^6.0.3",
     "supertest": "^1.0.1"
   },
   "scripts": {
-    "test": "npm run lint && ./node_modules/mocha/bin/mocha",
-    "lint": "./node_modules/eslint/bin/eslint.js lib test"
+    "test": "npm run lint && npm run unit",
+    "lint": "eslint lib test",
+    "unit": "mocha"
   }
 }
