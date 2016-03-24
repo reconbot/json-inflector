@@ -1,23 +1,18 @@
 {
-  "name": "cors",
-  "version": "2.7.1",
-  "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)",
-  "description": "middleware for dynamically or statically enabling CORS in express/connect applications",
-  "keywords": ["cors", "express", "connect", "middleware"],
-  "homepage": "https://github.com/expressjs/cors/",
+  "name": "json-inflector",
+  "version": "0.0.1",
+  "author": "Francis Gulotta <wizard@roborooter.com> (https://github.com/reconbot/)",
+  "description": "middleware for changing the inflection of json keys in requests and responses in express/connect applications",
+  "keywords": ["inflection", "camelcase", "snakecase", "express", "connect", "middleware"],
+  "homepage": "https://github.com/reconbot/json-inflector/",
   "repository": {
     "type": "git",
-    "url": "git://github.com/expressjs/cors.git"
+    "url": "git://github.com/reconbot/json-inflector.git"
   },
   "contributors": [
-    {
-      "name": "Troy Goode",
-      "email": "troygoode@gmail.com",
-      "web": "https://github.com/troygoode/"
-    }
   ],
   "license": "MIT",
-  "bugs": {"url": "https://github.com/expressjs/cors/issues"},
+  "bugs": {"url": "https://github.com/reconbot/json-inflector/issues"},
   "main": "./lib/index.js",
   "engines": {
     "node": ">=0.10.0"

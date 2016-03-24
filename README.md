@@ -1,12 +1,14 @@
-# `cors`
+# `json-inflector`
 
-CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options.
+`json-inflector` is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used modify json requests and responses with with inflection rules.
 
-**[Follow me (@troygoode) on Twitter!](https://twitter.com/intent/user?screen_name=troygoode)**
+I want to credit the [`cors`](https://github.com/expressjs/cors) library and it's authors for providing the project structure to make an express middleware.
 
-[![NPM](https://nodei.co/npm/cors.png?downloads=true&stars=true)](https://nodei.co/npm/cors/)
+**[Follow me (@reconbot) on Twitter!](https://twitter.com/reconbot)**
 
-[![build status](https://secure.travis-ci.org/expressjs/cors.png)](http://travis-ci.org/expressjs/cors)
+[![NPM](https://nodei.co/npm/json-inflector.png?downloads=true&stars=true)](https://nodei.co/npm/json-inflector/)
+
+[![build status](https://secure.travis-ci.org/reconbot/json-inflector.png)](http://travis-ci.org/reconbot/json-inflector)
 * [Installation](#installation)
 * [Usage](#usage)
   * [Simple Usage](#simple-usage-enable-all-cors-requests)
@@ -22,7 +24,7 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
 ## Installation (via [npm](https://npmjs.org/package/cors))
 
 ```bash
-$ npm install cors
+$ npm install --save json-inflector
 ```
 
 ## Usage
@@ -165,7 +167,7 @@ app.listen(80, function(){
 ## Configuration Options
 
 * `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Possible values:
- - `Boolean` - set `origin` to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`, or set it to `false` to disable CORS. 
+ - `Boolean` - set `origin` to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`, or set it to `false` to disable CORS.
  - `String` - set `origin` to a specific origin. For example if you set it to `"http://example.com"` only requests from "http://example.com" will be allowed.
  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. For example the pattern `/example\.com$/` will reflect any request that is coming from an origin ending with "example.com".
  - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /\.example2\.com$/]` will accept any request from "http://example1.com" or from a subdomain of "example2.com".
