@@ -27,7 +27,7 @@
     "npm": "^3.0.0"
   },
   "dependencies": {
-    "humps": "^1.0.0"
+    "inflection": "^1.8.0"
   },
   "devDependencies": {
     "body-parser": "^1.15.0",
