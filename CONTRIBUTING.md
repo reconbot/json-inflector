@@ -1,12 +1,9 @@
 # contributing to `cors`
 
-CORS is a node.js package for providing a [connect](http://www.senchalabs.org/connect/)/[express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options. Learn more about the project in [the README](README.md).
+`json-inflector` is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used modify json requests and responses with with inflection rules.
+ Learn more about the project in [the README](README.md).
 
 [![build status](https://secure.travis-ci.org/TroyGoode/node-cors.png)](http://travis-ci.org/TroyGoode/node-cors)
-
-## The CORS Spec
-
-[http://www.w3.org/TR/cors/](http://www.w3.org/TR/cors/)
 
 ## Pull Requests Welcome
 
@@ -20,16 +17,6 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
 $ npm install
 $ npm test
 ```
-
-## Interactive Testing Harness
-
-[http://node-cors-client.herokuapp.com](http://node-cors-client.herokuapp.com)
-
-Related git repositories:
-
-* [https://github.com/TroyGoode/node-cors-server](https://github.com/TroyGoode/node-cors-server)
-* [https://github.com/TroyGoode/node-cors-client](https://github.com/TroyGoode/node-cors-client)
-
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
