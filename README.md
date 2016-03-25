@@ -2,6 +2,8 @@
 
 The JSON Inflector is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used modify json requests and responses with with inflection rules.
 
+It works by parsing `req.body` if it's an object, and overiding `res.json` to parse a json responses if applicable.
+
 Credit to the [`cors`](https://github.com/expressjs/cors) library and it's authors for providing the project structure to make an express middleware.
 
 [![NPM](https://nodei.co/npm/json-inflector.png?downloads=true&stars=true)](https://nodei.co/npm/json-inflector/)
@@ -111,11 +113,11 @@ Both methods are optional and take the same kinds of arguments.
 
 The default configuration is the equivalent of:
 
-```json
+```js
 {
   request: 'underscore',
   response: 'camelizeLower'
-};
+}
 ```
 
 ## License
