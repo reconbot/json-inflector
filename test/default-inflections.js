@@ -2,31 +2,32 @@
 
 'use strict';
 
-var should = require('chai').should();
-var express = require('express'),
-  supertest = require('supertest'),
-  inflector = require('../lib'),
-  bodyParser = require('body-parser');
+const should = require('chai').should();
+const express = require('express');
+const supertest = require('supertest');
+const inflector = require('../lib');
+const bodyParser = require('body-parser');
 
-
-var snakeCaseObj = {
+const snakeCaseObj = {
   full_name: 'bob sanders',
   id: 4
 };
 
-var camelCaseObJ = {
+const camelCaseObJ = {
   fullName: 'bob sanders',
   id: 4
 };
 
-var app;
-beforeEach(function(){
+let app;
+beforeEach(function() {
   app = express();
   app.use(bodyParser.json());
   app.use(inflector());
+
   app.post('/', function (req, res) {
     res.status(200).send(JSON.stringify(req.body));
   });
+
   app.get('/', function(req, res){
     res.status(200).json(snakeCaseObj);
   });
@@ -44,13 +45,13 @@ beforeEach(function(){
   });
 });
 
-describe('default inflections to', function () {
+describe('default inflections to', function() {
   it('requests are changed to snake case', function (done) {
     supertest(app)
       .post('/')
       .send(camelCaseObJ)
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
         should.not.exist(err);
         JSON.parse(res.text).should.eql(snakeCaseObj);
         done();
@@ -61,7 +62,7 @@ describe('default inflections to', function () {
     supertest(app)
       .get('/')
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
         should.not.exist(err);
         res.body.should.eql(camelCaseObJ);
         done();
@@ -72,7 +73,7 @@ describe('default inflections to', function () {
     supertest(app)
       .get('/oldstyle')
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
         should.not.exist(err);
         res.body.should.eql(camelCaseObJ);
         done();
@@ -83,7 +84,7 @@ describe('default inflections to', function () {
     supertest(app)
       .get('/olderstyle')
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
         should.not.exist(err);
         res.body.should.eql(camelCaseObJ);
         done();
@@ -94,7 +95,7 @@ describe('default inflections to', function () {
     supertest(app)
       .get('/inconsiderateStyle')
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
         should.not.exist(err);
         res.body.should.eql(camelCaseObJ);
         done();

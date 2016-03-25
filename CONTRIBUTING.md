@@ -3,7 +3,7 @@
 `json-inflector` is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used modify json requests and responses with with inflection rules.
  Learn more about the project in [the README](README.md).
 
-[![build status](https://secure.travis-ci.org/TroyGoode/node-cors.png)](http://travis-ci.org/TroyGoode/node-cors)
+[![build status](https://secure.travis-ci.org/reconbot/json-inflector.png)](http://travis-ci.org/reconbot/json-inflector)
 
 ## Pull Requests Welcome
 
