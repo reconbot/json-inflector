@@ -2,18 +2,18 @@
 
 'use strict';
 
-let express = require('express');
-let inflector = require('../lib');
-let bodyParser = require('body-parser');
-let app = express();
-let request = require('request');
+const express = require('express');
+const inflector = require('../lib');
+const bodyParser = require('body-parser');
+const app = express();
+const request = require('request');
 
 app.use(bodyParser.json());
 app.use(inflector());
 
 app.post('/products', (req, res) => {
-  let product = req.body;
   console.log('Request:', req.body);
+  let product = req.body;
   product.product_price = 100;
   res.json(product);
 });
