@@ -1,6 +1,6 @@
 {
   "name": "json-inflector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Francis Gulotta <wizard@roborooter.com> (https://github.com/reconbot/)",
   "description": "middleware for changing the inflection of json keys in requests and responses in express/connect applications",
   "keywords": [
