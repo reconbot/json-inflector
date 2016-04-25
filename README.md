@@ -122,6 +122,19 @@ The default configuration is the equivalent of:
 }
 ```
 
+## Transform
+The transform function is also available to use directly
+
+```
+let inflector = require('json-inflector');
+var obj = {
+  fullName: "Bob Sanders"
+};
+inflector.transform(obj, 'underscore');
+// { full_name: "Bob Sanders"}
+
+```
+
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
