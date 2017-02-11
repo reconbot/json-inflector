@@ -1,5 +1,7 @@
 # `json-inflector`
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/reconbot/json-inflector.svg)](https://greenkeeper.io/)
+
 The JSON Inflector is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used modify json requests and responses with with inflection rules. This lets you change the formatting of the json's keys on it's way in and out of your app.
 
 For example maybe your server usings postgresql which has case insistive column names leading most people to use `snake_case` field names, but want your api to have `cameCased` field names. You can do a lot of manual parsing or you can setup a rule per app or per route and deal with the data in their "native" field formatting as they come from your clients and database.
