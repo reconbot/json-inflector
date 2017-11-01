@@ -107,6 +107,7 @@ We use [inflection](https://github.com/dreamerslab/node.inflection) to do the ke
 
 * `request`: Configures the request processing.
 * `response`: Configures the request processing.
+* `blackList`: Configures the properties that inflection will not affect
 
 Both methods are optional and take the same kinds of arguments.
 
@@ -118,7 +119,8 @@ The default configuration is the equivalent of:
 ```js
 {
   request: 'underscore',
-  response: 'camelizeLower'
+  response: 'camelizeLower',
+  blackList: []
 }
 ```
 

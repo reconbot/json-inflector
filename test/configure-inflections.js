@@ -10,33 +10,46 @@ const bodyParser = require('body-parser');
 
 const snakeCaseObj = {
   full_name: 'bob sanders',
-  id: 4
+  id: 4,
+  ignored: true
 };
 
 const upperCamelObj = {
   FullName: 'bob sanders',
-  Id: 4
+  Id: 4,
+  Ignored: true
 };
 
 const capDasherized = {
   'Full-name': 'bob sanders',
-  Id: 4
+  Id: 4,
+  Ignored: true
+};
+
+const blackList = {
+  'FullName': 'bob sanders',
+  Id: 4,
+  ignored: true
 };
 
 let app;
-beforeEach(function() {
+beforeEach(function () {
   app = express();
   app.use(bodyParser.json());
 
-  app.post('/camelizeRequest', inflector({request: 'camelize'}), function(req, res){
+  app.post('/camelizeRequest', inflector({ request: 'camelize' }), function (req, res) {
     res.status(200).send(JSON.stringify(req.body));
   });
 
-  app.get('/camelizeResponse', inflector({response: 'camelize'}), function (req, res) {
+  app.get('/camelizeResponse', inflector({ response: 'camelize' }), function (req, res) {
     res.status(200).send(snakeCaseObj);
   });
 
-  app.get('/arrayOfResponses', inflector({response: ['capitalize', 'dasherize']}), function (req, res) {
+  app.get('/arrayOfResponses', inflector({ response: ['capitalize', 'dasherize'] }), function (req, res) {
+    res.status(200).send(snakeCaseObj);
+  });
+
+  app.get('/blackList', inflector({ response: 'camelize', blackList: ['ignored'] }), function (req, res) {
     res.status(200).send(snakeCaseObj);
   });
 
@@ -73,6 +86,17 @@ describe('configure inflections so', function () {
       .end(function (err, res) {
         should.not.exist(err);
         res.body.should.eql(capDasherized);
+        done();
+      });
+  });
+
+  it('responses are changed to upperCamelCase except ignored property', function (done) {
+    supertest(app)
+      .get('/blackList')
+      .expect(200)
+      .end(function (err, res) {
+        should.not.exist(err);
+        res.body.should.eql(blackList);
         done();
       });
   });

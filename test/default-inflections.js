@@ -19,7 +19,7 @@ const camelCaseObJ = {
 };
 
 let app;
-beforeEach(function() {
+beforeEach(function () {
   app = express();
   app.use(bodyParser.json());
   app.use(inflector());
@@ -28,24 +28,24 @@ beforeEach(function() {
     res.status(200).send(JSON.stringify(req.body));
   });
 
-  app.get('/', function(req, res){
+  app.get('/', function (req, res) {
     res.status(200).json(snakeCaseObj);
   });
 
-  app.get('/oldstyle', function(req, res){
+  app.get('/oldstyle', function (req, res) {
     res.json(200, snakeCaseObj);
   });
 
-  app.get('/olderstyle', function(req, res){
+  app.get('/olderstyle', function (req, res) {
     res.json(snakeCaseObj, 200);
   });
 
-  app.get('/inconsiderateStyle', function(req, res){
+  app.get('/inconsiderateStyle', function (req, res) {
     res.send(snakeCaseObj);
   });
 });
 
-describe('default inflections to', function() {
+describe('default inflections to', function () {
   it('requests are changed to snake case', function (done) {
     supertest(app)
       .post('/')
