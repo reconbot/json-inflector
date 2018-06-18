@@ -19,7 +19,16 @@ const otherSnakeCaseObj = {
   id: 4,
   ignored: {
     alsoignored: true,
-    alsoignoring: "sanders bob"
+    alsoignoring: 'sanders bob'
+  }
+};
+
+const otherBlackListWithSelfNoInflect = {
+  fullName: 'bob sanders',
+  id: 4,
+  Ignored: {
+    alsoInflect: true,
+    inflect: 'sanders bob'
   }
 };
 
@@ -46,7 +55,16 @@ const blackListWithProperties = {
   Id: 4,
   ignored: {
     alsoignored: true,
-    alsoignoring: "sanders bob"
+    alsoignoring: 'sanders bob'
+  }
+};
+
+const blackListWithSelfNoInflect = {
+  'FullName': 'bob sanders',
+  Id: 4,
+  Ignored: {
+    AlsoInflect: true,
+    Inflect: 'sanders bob'
   }
 };
 
@@ -75,6 +93,9 @@ beforeEach(function () {
     res.status(200).send(otherSnakeCaseObj);
   });
 
+  app.get('/blackListWithSelfNoInflect', inflector({ response: 'camelize', blackList: [{ 'Ignored': { 'self': 'noinflect' } }] }), function (req, res) {
+    res.status(200).send(otherBlackListWithSelfNoInflect);
+  });
 });
 
 describe('configure inflections so', function () {
@@ -130,6 +151,17 @@ describe('configure inflections so', function () {
       .end(function (err, res) {
         should.not.exist(err);
         res.body.should.eql(blackListWithProperties);
+        done();
+      });
+  });
+
+  it('responses are changed to upperCamelCase except self ignored property', function (done) {
+    supertest(app)
+      .get('/blackListWithSelfNoInflect')
+      .expect(200)
+      .end(function (err, res) {
+        should.not.exist(err);
+        res.body.should.eql(blackListWithSelfNoInflect);
         done();
       });
   });
