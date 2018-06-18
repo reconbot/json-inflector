@@ -107,6 +107,7 @@ We use [inflection](https://github.com/dreamerslab/node.inflection) to do the ke
 
 * `request`: Configures the request processing.
 * `response`: Configures the request processing.
+* `blackList`: Configures the properties that inflection will not affect
 
 Both methods are optional and take the same kinds of arguments.
 
@@ -118,7 +119,8 @@ The default configuration is the equivalent of:
 ```js
 {
   request: 'underscore',
-  response: 'camelizeLower'
+  response: 'camelizeLower',
+  blackList: []
 }
 ```
 
@@ -128,10 +130,28 @@ The transform function is also available to use directly
 ```
 let inflector = require('json-inflector');
 var obj = {
-  fullName: "Bob Sanders"
+  fullName: "Bob Sanders"  
 };
 inflector.transform(obj, 'underscore');
 // { full_name: "Bob Sanders"}
+
+var theObj = {
+  fullName: "Bob Sanders",
+  fullAddress: {
+    fullStreet: "CHRIS NISWANDEE SMALLSYS INC 795" 
+  }
+};
+inflector.transform(otherObj, 'underscore', ['fullAddress']);
+// { full_name: "Bob Sanders", "fullAddress": { full_street: "CHRIS NISWANDEE SMALLSYS INC 795" }}
+
+var otherObj = {
+  fullName: "Bob Sanders",
+  fullAddress: {
+    fullStreet: "CHRIS NISWANDEE SMALLSYS INC 795" 
+  }
+};
+inflector.transform(otherObj, 'underscore', [{'fullAddress': {'props': 'noinflect'}}]);
+// { full_name: "Bob Sanders", "fullAddress": { fullStreet: "CHRIS NISWANDEE SMALLSYS INC 795" }}
 
 ```
 

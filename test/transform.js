@@ -15,10 +15,26 @@ const camelCaseObJ = {
   id: 4
 };
 
-describe('transform', function() {
+describe('transform', function () {
   it('uses the defined transformation', function (done) {
     inflector.transform(camelCaseObJ, 'underscore').should.deep.equal(snakeCaseObj);
     inflector.transform(snakeCaseObj, 'camelizeLower').should.deep.equal(camelCaseObJ);
+    done();
+  });
+
+  it('ignore properties in blacklist', function (done) {
+    const camelCaseObJBlackList = Object.assign({ blackedList: true }, camelCaseObJ);
+    const snakeCaseObjBlackList = Object.assign({ blackedList: true }, snakeCaseObj);
+    inflector.transform(camelCaseObJBlackList, 'underscore', ['blackedList']).should.deep.equal(snakeCaseObjBlackList);
+    inflector.transform(snakeCaseObjBlackList, 'camelizeLower', ['blackedList']).should.deep.equal(camelCaseObJBlackList);
+    done();
+  });
+
+  it('ignore properties in blacklist with nested properties', function (done) {
+    const camelCaseObJBlackList = Object.assign({ blackedList: { nested_property: true } }, camelCaseObJ);
+    const snakeCaseObjBlackList = Object.assign({ blackedList: { nested_property: true } }, snakeCaseObj);
+    inflector.transform(camelCaseObJBlackList, 'underscore', [{'blackedList': {'props': 'noinflect'}}]).should.deep.equal(snakeCaseObjBlackList);
+    inflector.transform(snakeCaseObjBlackList, 'camelizeLower', [{'blackedList': {'props': 'noinflect'}}]).should.deep.equal(camelCaseObJBlackList);
     done();
   });
 });

@@ -32,7 +32,7 @@ const circularObj = {
 circularObj.data = circularObj;
 
 let app;
-beforeEach(function() {
+beforeEach(function () {
   app = express();
   app.use(bodyParser.json());
   app.use(inflector());
@@ -41,11 +41,11 @@ beforeEach(function() {
     res.status(200).send(JSON.stringify(req.body));
   });
 
-  app.get('/', function(req, res){
+  app.get('/', function (req, res) {
     res.status(200).json(snakeRoom);
   });
 
-  app.get('/circular', function(req, res){
+  app.get('/circular', function (req, res) {
     res.status(200).json(circularObj);
   });
 

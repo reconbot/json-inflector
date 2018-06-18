@@ -10,36 +10,92 @@ const bodyParser = require('body-parser');
 
 const snakeCaseObj = {
   full_name: 'bob sanders',
-  id: 4
+  id: 4,
+  ignored: true
+};
+
+const otherSnakeCaseObj = {
+  full_name: 'bob sanders',
+  id: 4,
+  ignored: {
+    alsoignored: true,
+    alsoignoring: 'sanders bob'
+  }
+};
+
+const otherBlackListWithSelfNoInflect = {
+  fullName: 'bob sanders',
+  id: 4,
+  Ignored: {
+    alsoInflect: true,
+    inflect: 'sanders bob'
+  }
 };
 
 const upperCamelObj = {
   FullName: 'bob sanders',
-  Id: 4
+  Id: 4,
+  Ignored: true
 };
 
 const capDasherized = {
   'Full-name': 'bob sanders',
-  Id: 4
+  Id: 4,
+  Ignored: true
+};
+
+const blackList = {
+  'FullName': 'bob sanders',
+  Id: 4,
+  ignored: true
+};
+
+const blackListWithProperties = {
+  'FullName': 'bob sanders',
+  Id: 4,
+  ignored: {
+    alsoignored: true,
+    alsoignoring: 'sanders bob'
+  }
+};
+
+const blackListWithSelfNoInflect = {
+  'FullName': 'bob sanders',
+  Id: 4,
+  Ignored: {
+    AlsoInflect: true,
+    Inflect: 'sanders bob'
+  }
 };
 
 let app;
-beforeEach(function() {
+beforeEach(function () {
   app = express();
   app.use(bodyParser.json());
 
-  app.post('/camelizeRequest', inflector({request: 'camelize'}), function(req, res){
+  app.post('/camelizeRequest', inflector({ request: 'camelize' }), function (req, res) {
     res.status(200).send(JSON.stringify(req.body));
   });
 
-  app.get('/camelizeResponse', inflector({response: 'camelize'}), function (req, res) {
+  app.get('/camelizeResponse', inflector({ response: 'camelize' }), function (req, res) {
     res.status(200).send(snakeCaseObj);
   });
 
-  app.get('/arrayOfResponses', inflector({response: ['capitalize', 'dasherize']}), function (req, res) {
+  app.get('/arrayOfResponses', inflector({ response: ['capitalize', 'dasherize'] }), function (req, res) {
     res.status(200).send(snakeCaseObj);
   });
 
+  app.get('/blackList', inflector({ response: 'camelize', blackList: ['ignored'] }), function (req, res) {
+    res.status(200).send(snakeCaseObj);
+  });
+
+  app.get('/blackListWithProperties', inflector({ response: 'camelize', blackList: [{ 'ignored': { 'props': 'noinflect' } }] }), function (req, res) {
+    res.status(200).send(otherSnakeCaseObj);
+  });
+
+  app.get('/blackListWithSelfNoInflect', inflector({ response: 'camelize', blackList: [{ 'Ignored': { 'self': 'noinflect' } }] }), function (req, res) {
+    res.status(200).send(otherBlackListWithSelfNoInflect);
+  });
 });
 
 describe('configure inflections so', function () {
@@ -73,6 +129,39 @@ describe('configure inflections so', function () {
       .end(function (err, res) {
         should.not.exist(err);
         res.body.should.eql(capDasherized);
+        done();
+      });
+  });
+
+  it('responses are changed to upperCamelCase except ignored property', function (done) {
+    supertest(app)
+      .get('/blackList')
+      .expect(200)
+      .end(function (err, res) {
+        should.not.exist(err);
+        res.body.should.eql(blackList);
+        done();
+      });
+  });
+
+  it('responses are changed to upperCamelCase except ignored property and its properties', function (done) {
+    supertest(app)
+      .get('/blackListWithProperties')
+      .expect(200)
+      .end(function (err, res) {
+        should.not.exist(err);
+        res.body.should.eql(blackListWithProperties);
+        done();
+      });
+  });
+
+  it('responses are changed to upperCamelCase except self ignored property', function (done) {
+    supertest(app)
+      .get('/blackListWithSelfNoInflect')
+      .expect(200)
+      .end(function (err, res) {
+        should.not.exist(err);
+        res.body.should.eql(blackListWithSelfNoInflect);
         done();
       });
   });
